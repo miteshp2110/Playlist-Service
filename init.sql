@@ -40,6 +40,7 @@ CREATE TABLE songs (
     artist INT NOT NULL,
     song_image_url VARCHAR(250) NOT NULL UNIQUE,
     song_url VARCHAR(300) NOT NULL UNIQUE,
+    duration int NOT NULL
     FOREIGN KEY (language) REFERENCES languages(id) ON DELETE CASCADE,
     FOREIGN KEY (genere) REFERENCES genere(id) ON DELETE CASCADE,
     FOREIGN KEY (artist) REFERENCES artists(id) ON DELETE CASCADE
