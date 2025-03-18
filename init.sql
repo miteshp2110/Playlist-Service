@@ -1,0 +1,69 @@
+CREATE database playlist;
+
+use playlist;
+
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    profile_url VARCHAR(300) UNIQUE
+);
+
+CREATE TABLE admins (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(300) NOT NULL
+);
+
+CREATE TABLE languages (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE artists (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    profile_image VARCHAR(250) NOT NULL UNIQUE
+);
+
+CREATE TABLE genere (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE songs (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    language INT NOT NULL,
+    genere INT NOT NULL,
+    artist INT NOT NULL,
+    song_image_url VARCHAR(250) NOT NULL UNIQUE,
+    song_url VARCHAR(300) NOT NULL UNIQUE,
+    FOREIGN KEY (language) REFERENCES languages(id) ON DELETE CASCADE,
+    FOREIGN KEY (genere) REFERENCES genere(id) ON DELETE CASCADE,
+    FOREIGN KEY (artist) REFERENCES artists(id) ON DELETE CASCADE
+);
+
+CREATE TABLE favourites (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    song_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (song_id) REFERENCES songs(id) ON DELETE CASCADE
+);
+
+CREATE TABLE playlists (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE playlist_songs (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    playlist_id INT NOT NULL,
+    song_id INT NOT NULL,
+    FOREIGN KEY (playlist_id) REFERENCES playlists(id) ON DELETE CASCADE,
+    FOREIGN KEY (song_id) REFERENCES songs(id) ON DELETE CASCADE
+);

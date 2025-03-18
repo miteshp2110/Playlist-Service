@@ -1,0 +1,32 @@
+{
+  "name": "playlist-service",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/miteshp2110/Playlist-Service#readme",
+  "bugs": {
+    "url": "https://github.com/miteshp2110/Playlist-Service/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miteshp2110/Playlist-Service.git"
+  },
+  "license": "ISC",
+  "author": "miteshp2110",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
