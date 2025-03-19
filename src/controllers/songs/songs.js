@@ -47,7 +47,24 @@ const searchSong = (async(req,res)=>{
     }
 })
 
+const getAllSongs = (async (req,res)=>{
+    try{
+        const page = parseInt(req.query.page) || 1
+        const limit = parseInt(req.query.limit) || 10
+        const offset = (page - 1) * limit
+
+        const [result] = await pool.query("select * from songs limit ? offset ?",[limit,offset])
+
+        return res.status(200).json(result)
+
+    }
+    catch(err){
+        console.error(err)
+        return res.status(500).json({Message:"Some Error Occured"})
+    }
+})
 
 
 
-module.exports = {addSong,getTrendingSong,searchSong}
+
+module.exports = {addSong,getTrendingSong,searchSong,getAllSongs}

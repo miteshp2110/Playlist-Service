@@ -2,7 +2,7 @@ const express = require('express');
 const multer  = require('multer');
 const path    = require('path');
 const checkUser = require('../middlewares/checkUser');
-const { addSong, getTrendingSong, searchSong } = require('../controllers/songs/songs');
+const { addSong, getTrendingSong, searchSong, getAllSongs } = require('../controllers/songs/songs');
 const router  = express.Router();
 
 const storage = multer.diskStorage({
@@ -24,7 +24,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Use .fields() to handle both song_image and song file uploads in one middleware
 router.post(
   "/",
   checkUser("admin"),
@@ -37,5 +36,6 @@ router.post(
 
 router.get("/trending",checkUser("user"),getTrendingSong)
 router.get("/search",checkUser("user"),searchSong)
+router.get("/all",checkUser("admin"),getAllSongs)
 
 module.exports = router;
