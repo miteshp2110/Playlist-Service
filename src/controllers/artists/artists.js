@@ -9,7 +9,7 @@ const addArtist = (async(req,res)=>{
             return res.status(400).json({Mesaage:"Invalid Request"})
         }
 
-        const imageUrl = `${req.protocol}://${req.get('host')}/uploads/artist-profile/${file.filename}`
+        const imageUrl = `${req.protocol}://${req.get('host')}/service/uploads/artist-profile/${file.filename}`
         const [result] = await pool.query("Select id from artists where name = ?",[name])
         
         if(result.length == 0){
