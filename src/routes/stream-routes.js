@@ -4,7 +4,7 @@ const checkUser = require("../middlewares/checkUser")
 const router = express.Router()
 
 
-router.get("/listen",checkUser("user"),streamMusic)
+router.get("/listen",checkUser("any"),streamMusic)
 
 
 module.exports = router
