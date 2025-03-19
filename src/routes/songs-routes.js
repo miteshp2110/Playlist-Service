@@ -2,7 +2,7 @@ const express = require('express');
 const multer  = require('multer');
 const path    = require('path');
 const checkUser = require('../middlewares/checkUser');
-const { addSong } = require('../controllers/songs/songs');
+const { addSong, getTrendingSong, searchSong } = require('../controllers/songs/songs');
 const router  = express.Router();
 
 const storage = multer.diskStorage({
@@ -34,5 +34,8 @@ router.post(
   ]),
   addSong
 );
+
+router.get("/trending",checkUser("user"),getTrendingSong)
+router.get("/search",checkUser("user"),searchSong)
 
 module.exports = router;

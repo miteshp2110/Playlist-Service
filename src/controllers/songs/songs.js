@@ -22,8 +22,32 @@ const addSong = (async(req,res)=>{
     }
 })
 
+const getTrendingSong = (async(req,res)=>{
+    try{
+        const [result] = await pool.query("Select * from songs limit 4")
+        return res.status(200).json(result)
+    }
+    catch(err){
+        console.error(err)
+        return res.status(500).json({Message:"Some Error Occured"})
+    }
+})
+
+const searchSong = (async(req,res)=>{
+    try{
+        const {name} = req.query
+        if(name){
+            const [result] = await pool.query("Select * from songs where name LIKE ? limit 15",[`${name}%`])
+            return res.status(200).json(result)
+        }
+    }
+    catch(err){
+        console.error(err)
+        return res.status(500).json({Message:"Some Error Occured"})
+    }
+})
 
 
 
 
-module.exports = {addSong}
+module.exports = {addSong,getTrendingSong,searchSong}
