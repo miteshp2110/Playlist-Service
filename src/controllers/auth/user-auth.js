@@ -22,7 +22,7 @@ const authorizeUser = (async(req,res)=>{
         const [result] = await pool.query("Select count(*) as count from admins where email = ?",[email])
         
         if(result[0].count === 1){
-            return res.status(307).json({admin:true,email:email})
+            return res.status(307).json({Message:"User is a admin",token:"",email:email,name:name,profile_url:""})
         }
         else{
             const [checkUser] = await pool.query("Select count(*) as count from users where email = ?",[email])
@@ -32,7 +32,7 @@ const authorizeUser = (async(req,res)=>{
                     email : email,
                     role : 'user'
                 }
-                return res.status(200).json({Message:"Success",token:getJwtToken(payload)})
+                return res.status(200).json({Message:"Success",token:getJwtToken(payload),email:email,name:name,profile_url:picture})
             }
             else{
                 await pool.query("insert into users (name,email,profile_url) values (?,?,?)",[name,email,picture])
@@ -40,7 +40,7 @@ const authorizeUser = (async(req,res)=>{
                     email : email,
                     role : "user"
                 }
-                return res.status(200).json({Message:"Success",token:getJwtToken(payload)})
+                return res.status(200).json({Message:"Success",token:getJwtToken(payload),email:email,name:name,profile_url:picture})
             }
         }
 
