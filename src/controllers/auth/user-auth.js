@@ -22,7 +22,7 @@ const authorizeUser = (async(req,res)=>{
         const [result] = await pool.query("Select count(*) as count from admins where email = ?",[email])
         
         if(result[0].count === 1){
-            return res.status(307).json({Message:"User is a admin",token:"",email:email,name:name,profile_url:""})
+            return res.status(200).json({Message:"isAdmin",token:"",email:email,name:name,profile_url:""})
         }
         else{
             const [checkUser] = await pool.query("Select count(*) as count from users where email = ?",[email])
