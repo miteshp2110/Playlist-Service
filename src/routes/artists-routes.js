@@ -19,6 +19,6 @@ const upload = multer({storage})
 
 router.post("/",checkUser("admin"),upload.single('profile_image'),addArtist)
 
-router.get("/",checkUser("any"),getAllArtist)
+router.get("/",checkUser("admin"),getAllArtist)
 
 module.exports = router

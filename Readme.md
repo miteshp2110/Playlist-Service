@@ -1,6 +1,6 @@
 Authentication: After logging in, you will receive a token. For all subsequent requests, include the following header: Authorization: Bearer <token>
 
-Login URL: https://playlist-backend.tech/service/auth/admin/login Method: POST Request Body (JSON): { "email": "paliwalmitesh2110@gmail.com", "password": "Mi12te34@" } Response (JSON): { "Message": "Success", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhbGl3YWxtaXRlc2gyMTEwQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0MjM3NzIwNywiZXhwIjoxNzQyOTgyMDA3fQ.by-uIurowClAkIT7FZjQvUxN9olcVoGOjHECVxu1JuE" }
+Login URL: https://playlist-backend.tech/service/auth/admin/login Method: POST Request Body (JSON): { "email": "", "password": "" } Response (JSON): { "Message": "Success", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhbGl3YWxtaXRlc2gyMTEwQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0MjM3NzIwNywiZXhwIjoxNzQyOTgyMDA3fQ.by-uIurowClAkIT7FZjQvUxN9olcVoGOjHECVxu1JuE" }
 Add Language URL: https://playlist-backend.tech/service/languages Method: POST Headers: Authorization: Bearer <token> Request Body (JSON): { "name": "Telgue" } Response (JSON): { "Message": "Added new Language" }
 Add Genere URL: https://playlist-backend.tech/service/genere Method: POST Headers: Authorization: Bearer <token> Request Body (JSON): { "name": "Sad" } Response (JSON): { "Message": "Added new Genere" }
 Add Artist URL: https://playlist-backend.tech/service/artists Method: POST Headers: Authorization: Bearer <token> Content-Type: multipart/form-data Form Fields:
