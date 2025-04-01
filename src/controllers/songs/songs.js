@@ -24,7 +24,7 @@ const addSong = (async(req,res)=>{
 
 const getTrendingSong = (async(req,res)=>{
     try{
-        const [result] = await pool.query("Select * from songs limit 4")
+        const [result] = await pool.query("Select id,name,song_image_url from songs limit 6")
         return res.status(200).json(result)
     }
     catch(err){
