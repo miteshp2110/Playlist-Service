@@ -24,7 +24,7 @@ const addSong = (async(req,res)=>{
 
 const getTrendingSong = (async(req,res)=>{
     try{
-        const [result] = await pool.query("Select id,name,song_image_url from songs limit 6")
+        const [result] = await pool.query("Select id,name,song_image_url from songs order by RAND() limit 6")
         return res.status(200).json(result)
     }
     catch(err){
@@ -33,11 +33,14 @@ const getTrendingSong = (async(req,res)=>{
     }
 })
 
+
 const searchSong = (async(req,res)=>{
     try{
+        const email = req.user
+
         const {name} = req.query
         if(name){
-            const [result] = await pool.query("Select * from songs where name LIKE ? limit 15",[`${name}%`])
+            const [result] = await pool.query("SELECT s.id AS songId, s.name AS songName, s.song_image_url, s.duration, a.name AS artistName, IF(f.id IS NOT NULL, f.id, 0) AS isFavourite FROM songs s JOIN artists a ON s.artist = a.id LEFT JOIN favourites f ON f.song_id = s.id AND f.user_id = (SELECT id FROM users WHERE email = ?) WHERE s.name LIKE ?",[email,`${name}%`])
             return res.status(200).json(result)
         }
     }

@@ -48,4 +48,17 @@ const getAllArtist = (async(req,res)=>{
     }
 }) 
 
-module.exports = {addArtist,getAllArtist}
+const getTopArtist = (async(req,res)=>{
+    try{
+
+        const [result] = await pool.query("SELECT * FROM artists ORDER BY RAND() LIMIT 6")
+        return res.status(200).json(result)
+
+    }
+    catch(err){
+        console.error(err)
+        return res.status(500).json({Message:"Some Error Occured"})
+    }
+}) 
+
+module.exports = {addArtist,getAllArtist,getTopArtist}

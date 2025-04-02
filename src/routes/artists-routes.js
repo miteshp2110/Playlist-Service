@@ -1,7 +1,7 @@
 const express = require('express')
 const multer = require('multer')
 const path  = require('path')
-const { addArtist, getAllArtist } = require('../controllers/artists/artists')
+const { addArtist, getAllArtist, getTopArtist } = require('../controllers/artists/artists')
 const checkUser = require('../middlewares/checkUser')
 const router = express.Router()
 
@@ -20,5 +20,7 @@ const upload = multer({storage})
 router.post("/",checkUser("admin"),upload.single('profile_image'),addArtist)
 
 router.get("/",checkUser("admin"),getAllArtist)
+
+router.get("/top",checkUser("user"),getTopArtist)
 
 module.exports = router

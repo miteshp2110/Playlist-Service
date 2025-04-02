@@ -16,6 +16,7 @@ app.use("/genere",require('./routes/genere-routes'))
 app.use("/artists",require('./routes/artists-routes'))
 app.use("/song",require('./routes/songs-routes'))
 app.use("/stream",require('./routes/stream-routes'))
+app.use("/favourite",require('./routes/favourite-routes'))
 
 
 
