@@ -10,9 +10,9 @@ async function addFavourite(req,res){
         const [response] = await pool.query('Select id from users where email = ?',[email])
         const uId = response[0].id
 
-        await pool.query("insert into favourites(user_id,song_id) values (?,?)",[uId,songId])
+        const [result] = await pool.query("insert into favourites(user_id,song_id) values (?,?)",[uId,songId])
         
-        return res.status(201).json({Message:"Added To Favourites"})
+        return res.status(201).json({Message:`${result.insertId}`})
    }
    catch(err){
     

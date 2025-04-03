@@ -1,6 +1,6 @@
 const express = require("express")
 const checkUser = require("../middlewares/checkUser")
-const { addFavourite, getFavourites, removeFavourite } = require("../controllers/genere/favourite")
+const { addFavourite, getFavourites, removeFavourite } = require("../controllers/favourite/favourite.js")
 
 const router = express.Router()
 
