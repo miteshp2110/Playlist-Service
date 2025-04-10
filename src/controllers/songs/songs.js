@@ -84,8 +84,63 @@ const getAllSongsMobile = (async (req,res)=>{
     }
 })
 
+const getSongsByArtist= (async(req,res)=>{
+    try{
+        const {id} = req.query
+        const [result] = await pool.query("SELECT songs.id, songs.name, songs.song_image_url FROM songs JOIN artists ON songs.artist = artists.id WHERE artists.id = ?",[id])
+        return res.status(200).json(result)
+    }
+    catch(err){
+        console.error(err)
+        return res.status(500).json({Message:"Some Error Occured"})
+    }
+})
+
+const getSongById = (async(req,res)=>{
+    try{
+        const {id} = req.query
+        const [result] = await pool.query("SELECT songs.id, songs.name, songs.song_image_url,artists.name AS artist FROM songs JOIN artists ON songs.artist = artists.id WHERE songs.id = ?",[id])
+        return res.status(200).json(result[0])
+    }
+    catch(err){
+        console.error(err)
+        return res.status(500).json({Message:"Some Error Occured"})
+    }
+})
+
+const getNextSong = (async(req,res)=>{
+    try{
+        
+        const {currentId,ids} = req.body
+        ids.push(currentId)
+        var query = "select id from songs where genere = (select genere from songs where id = ?) and id not in (?) order by RAND() limit 1"
+        var finalResult = {}
+        const [result] = await pool.query(query,[currentId,ids])
+        if(result.length === 0){
+            query = "select id from songs where artist = (select artist from songs where id = ?) and id not in (?) order by RAND() limit 1"
+            const [resultArtist] = await pool.query(query,[currentId,ids])
+            if(resultArtist.length === 0){
+                query = "select id from songs where id not in (?) order by RAND() limit 1"
+                const [resultAll] = await pool.query(query,[ids])
+                if(resultAll.length === 0){
+                    return res.status(200).json(resultAll[0])
+                }
+                finalResult = resultAll[0]
+            }else{
+                finalResult = resultArtist[0]
+            }
+        }
+        else{
+            finalResult=result[0]
+        }
+        return res.status(200).json(finalResult)
+    }
+    catch(err){
+        console.error(err)
+        return res.status(500).json({Message:"Some Error Occured"})
+    }
+})
 
 
 
-
-module.exports = {addSong,getTrendingSong,searchSong,getAllSongs,getAllSongsMobile}
+module.exports = {addSong,getTrendingSong,searchSong,getAllSongs,getAllSongsMobile,getSongsByArtist,getSongById,getNextSong}

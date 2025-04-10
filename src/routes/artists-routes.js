@@ -1,7 +1,7 @@
 const express = require('express')
 const multer = require('multer')
 const path  = require('path')
-const { addArtist, getAllArtist, getTopArtist } = require('../controllers/artists/artists')
+const { addArtist, getAllArtist, getTopArtist ,getArtistById} = require('../controllers/artists/artists')
 const checkUser = require('../middlewares/checkUser')
 const router = express.Router()
 

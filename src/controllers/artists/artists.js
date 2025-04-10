@@ -61,4 +61,5 @@ const getTopArtist = (async(req,res)=>{
     }
 }) 
 
+
 module.exports = {addArtist,getAllArtist,getTopArtist}
