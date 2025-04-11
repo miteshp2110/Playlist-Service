@@ -123,7 +123,7 @@ const getNextSong = (async(req,res)=>{
                 query = "select id from songs where id not in (?) order by RAND() limit 1"
                 const [resultAll] = await pool.query(query,[ids])
                 if(resultAll.length === 0){
-                    return res.status(200).json(resultAll[0])
+                    return res.status(200).json({"id":0})
                 }
                 finalResult = resultAll[0]
             }else{
