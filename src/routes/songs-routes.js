@@ -41,5 +41,5 @@ router.get("/all",checkUser("admin"),getAllSongs)
 router.get("/all/mobile",checkUser("admin"),getAllSongsMobile)
 router.get("/artist/",checkUser("user"),getSongsByArtist)
 router.get("/player/",checkUser("any"),getSongById)
-router.get("/next",checkUser("any"),getNextSong)
+router.post("/next",checkUser("any"),getNextSong)
 module.exports = router;
