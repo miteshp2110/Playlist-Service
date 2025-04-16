@@ -141,6 +141,19 @@ const getNextSong = (async(req,res)=>{
     }
 })
 
+const getFavSongs = (async(req,res)=>{
+    try{
+        const email = req.user
+        const songId = req.params.songId
+        const [result] = await pool.query("select count(id) as count from favourites where user_id = (select id from users where email = ?) and song_id = ?",[email,songId])
+        return res.status(200).json(result[0].count)
+    }
+    catch(err){
+        console.error(err)
+        return res.status(500).json({Message:"Some Error Occured"})
+    }
+})
 
 
-module.exports = {addSong,getTrendingSong,searchSong,getAllSongs,getAllSongsMobile,getSongsByArtist,getSongById,getNextSong}
+
+module.exports = {addSong,getTrendingSong,searchSong,getAllSongs,getAllSongsMobile,getSongsByArtist,getSongById,getNextSong,getFavSongs}
