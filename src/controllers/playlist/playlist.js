@@ -47,6 +47,27 @@ async function getPlaylists(req,res){
     }
 }
 
+async function getPlaylistSongs(req,res){
+    try{ 
+        const playlistId = parseInt(req.params.playlistId)
+        if(!playlistId){
+            return res.status(400).json({Message:"Invalid Body"})
+        }
+        
+        const [result] = await pool.query('select song_id from playlist_songs where playlist_id = ?',[playlistId])
+
+        const songsList = []
+        result.forEach(song => {
+            songsList.push(song.song_id)
+        })
+        
+        return res.status(200).json(songsList)
+    }
+    catch(err){
+        console.error(err)
+        return res.status(500).json({Message:"Some Error Occured"})
+    }
+}
 
 
-module.exports = {addPlaylist,getPlaylists}
+module.exports = {addPlaylist,getPlaylists,getPlaylistSongs}
